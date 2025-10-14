@@ -217,27 +217,51 @@ git merge --no-ff feature/ui
 
 * Always merge **feature branches into main** after review.
 * Resolve conflicts manually if they arise.
-### 🧩 Rebase
-```bash
-# 6️⃣ Rebase your feature branch onto main
-git rebase origin/main
-# This moves your commits on top of the latest main branch commits
+  
+### 🧩 Rebase Branch onto Another Branch
 
-# 7️⃣ Resolve any conflicts if they appear during rebase
-# After resolving conflicts:
-git add [resolved-files]
+Syntax:
+```bash
+git rebase [branch]           # Rebase current branch onto [branch]
+git rebase [upstream] [branch]  # Rebase [branch] onto [upstream] branch
+git rebase -i [commit]        # Interactive rebase from specific commit
+```
+Example:
+```bash
+git checkout feature/ui
+git rebase main
+# Moves commits from feature/ui on top of main branch
+
+git rebase -i HEAD~3
+# Opens interactive rebase editor for last 3 commits
+```
+Usage Notes:
+
+Use rebase to update your feature branch with the latest changes from main before merging.
+-i (interactive) lets you edit, squash, or reorder commits.
+
+🧩 Continue Rebase After Conflict
+
+Syntax:
+```bash
+git add [file]          # Stage resolved files
+git rebase --continue   # Continue rebase process
+git rebase --abort      # Cancel rebase and go back
+```
+
+Example:
+```bash
+git add index.html
 git rebase --continue
 
-# 8️⃣ Push rebased branch to remote (force push required after rebase)
-git push -f origin feature/ui
-
-# 9️⃣ Merge feature branch into main
-git checkout main
-git merge feature/ui
-
-# 10️⃣ Push updated main branch to remote
-git push origin main
+# If you decide to cancel rebase
+git rebase --abort
 ```
+
+Notes:
+
+Conflicts may appear if the same lines were changed in both branches.
+Always resolve conflicts before continuing.
 
 ---
 
@@ -376,24 +400,70 @@ git checkout -- app.js
 git restore app.js
 ```
 
+Got it! Let me rewrite your **Reset Changes section** in the **same style you used** for the guide, but with **detailed explanation for each variant** while keeping it clean and structured.
+
 ---
 
 ### 🧩 Reset Changes
 
+The `git reset` command is used to **move the HEAD to a specific commit**, optionally modifying the **staging area** and **working directory**. It is often used to undo mistakes in commits, unstage files, or discard changes.
+
+---
+
+**Syntax:**
+
 ```bash
-git reset [file]             # Unstage file
-git reset --hard [commit]    # Reset working directory and history
-git reset --soft [commit]    # Reset history but keep changes staged
+git reset [file]             # Unstage a specific file
+git reset --soft [commit]    # Undo commits but keep changes staged
+git reset --mixed [commit]   # Undo commits and unstage changes (default)
+git reset --hard [commit]    # Undo commits and discard all changes
 ```
 
-**Example:**
+---
+
+**Examples:**
 
 ```bash
+# 1️⃣ Unstage a file (keep local changes)
 git reset index.html
-git reset --hard a1b2c3d
+
+# 2️⃣ Undo last commit but keep changes staged
 git reset --soft HEAD~1
+
+# 3️⃣ Undo last commit and unstage changes (default is mixed)
+git reset --mixed HEAD~1
+
+# 4️⃣ Undo last commit and discard all changes
+git reset --hard HEAD~1
+
+# 5️⃣ Reset branch to a specific commit and discard everything after
+git reset --hard a1b2c3d
 ```
 
+---
+
+**Detailed Explanation:**
+
+| Variant                      | What it does                                                                                  | Usage Example              | Safety         |
+| ---------------------------- | --------------------------------------------------------------------------------------------- | -------------------------- | -------------- |
+| `git reset [file]`           | Removes the file from staging but keeps changes in working directory                          | `git reset index.html`     | ✅ Safe         |
+| `git reset --soft [commit]`  | Moves HEAD to the specified commit, **keeps changes staged**                                  | `git reset --soft HEAD~1`  | ✅ Safe         |
+| `git reset --mixed [commit]` | Moves HEAD to the commit, **unstages changes**, working directory remains                     | `git reset --mixed HEAD~1` | ✅ Safe         |
+| `git reset --hard [commit]`  | Moves HEAD to the commit, **clears staging area and working directory**, **all changes lost** | `git reset --hard a1b2c3d` | ⚠️ Destructive |
+
+---
+
+**Notes:**
+
+1. `--mixed` is the **default mode** if no option is specified.
+2. `--soft` is useful to **rewrite the last commit** or **combine commits**.
+3. `--hard` is destructive — use **carefully**, especially if your changes aren’t backed up.
+4. You can recover lost commits after a hard reset using:
+
+```bash
+git reflog
+git checkout [commit-hash]
+```
 ---
 
 ## 🧰 8. Stashing (Temporary Save)
