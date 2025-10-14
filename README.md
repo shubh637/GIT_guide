@@ -215,10 +215,52 @@ git merge feature/payment
 git merge --no-ff feature/ui
 ```
 
-**Notes:**
-
 * Always merge **feature branches into main** after review.
 * Resolve conflicts manually if they arise.
+### 🧩 Rebase
+```bash
+# 6️⃣ Rebase your feature branch onto main
+git rebase origin/main
+# This moves your commits on top of the latest main branch commits
+
+# 7️⃣ Resolve any conflicts if they appear during rebase
+# After resolving conflicts:
+git add [resolved-files]
+git rebase --continue
+
+# 8️⃣ Push rebased branch to remote (force push required after rebase)
+git push -f origin feature/ui
+
+# 9️⃣ Merge feature branch into main
+git checkout main
+git merge feature/ui
+
+# 10️⃣ Push updated main branch to remote
+git push origin main
+```
+
+---
+
+1. **Rebase vs Merge:**
+
+   * Merge preserves all commit history as a “merge commit.”
+   * Rebase creates a **linear history** by moving your commits on top of main.
+
+2. **When to rebase:**
+
+   * Before merging a feature branch to main to **avoid messy merge commits**.
+   * To **update your branch** with the latest changes from main.
+
+3. **Force push after rebase:**
+
+   * Rebasing rewrites history. If your branch was already pushed, you must use `git push -f`.
+
+---
+
+If you want, I can **also create a visual diagram of this workflow**, showing **branch creation, commits, rebasing, and merging**, which makes it very clear for beginners and teams.
+
+Do you want me to make that diagram?
+
 
 ---
 
