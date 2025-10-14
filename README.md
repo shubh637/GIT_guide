@@ -465,6 +465,19 @@ git reflog
 git checkout [commit-hash]
 ```
 ---
+Example:
+```bash
+git reflog
+# Output example:
+# a1b2c3d (HEAD -> main) HEAD@{0}: commit: Added UI components
+# 4d5e6f7 HEAD@{1}: commit: Fixed login bug
+# 8g9h0i1 HEAD@{2}: reset: moving to HEAD~1
+
+# 2️⃣ Checkout a lost commit to inspect or restore it
+git checkout 4d5e6f7
+# Now your working directory matches the commit "Fixed login bug"
+```
+---
 
 ## 🧰 8. Stashing (Temporary Save)
 
