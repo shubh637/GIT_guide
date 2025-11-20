@@ -281,13 +281,6 @@ Always resolve conflicts before continuing.
 
 ---
 
-If you want, I can **also create a visual diagram of this workflow**, showing **branch creation, commits, rebasing, and merging**, which makes it very clear for beginners and teams.
-
-Do you want me to make that diagram?
-
-
----
-
 ## 🔄 5. Remote Repositories
 
 ### 🧩 Add Remote
