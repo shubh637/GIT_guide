@@ -400,8 +400,6 @@ git checkout -- app.js
 git restore app.js
 ```
 
-Got it! Let me rewrite your **Reset Changes section** in the **same style you used** for the guide, but with **detailed explanation for each variant** while keeping it clean and structured.
-
 ---
 
 ### 🧩 Reset Changes
