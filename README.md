@@ -279,6 +279,22 @@ Always resolve conflicts before continuing.
 
    * Rebasing rewrites history. If your branch was already pushed, you must use `git push -f`.
 
+
+### 🧩Delete a Local Branch
+
+Use this when the branch is already merged, or you no longer need it.
+
+If the branch is already merged:
+```bash
+git branch -d branch-name
+```
+
+⚠️ Use -D carefully—once deleted, you cannot recover unless the commit hash is known.
+
+Force delete (even if not merged):
+```bash
+git branch -D branch-name
+```
 ---
 
 ## 🔄 5. Remote Repositories
